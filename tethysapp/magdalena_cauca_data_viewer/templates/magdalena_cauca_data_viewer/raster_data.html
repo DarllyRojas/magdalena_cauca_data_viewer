@@ -17,14 +17,16 @@
 {% endblock %}
 
 {% block app_content %}
-  {% url 'magdalena_cauca_data_viewer:home' as home %}
-  {% url 'magdalena_cauca_data_viewer:stations_data' as stations_data %}
-  {% url 'magdalena_cauca_data_viewer:raster_data' as raster_data %}
-  <h1>Welcome to Magdalena and Cauca Rivers Basin Data Navigator!</h1>
-  <p>Please, select the type of data you want to extract:</p>
+  <h1>Welcome to Magdalena and Cauca Rivers Basin Stations Data Navigator!</h1>
+  <p>Please, select the variable of interest which you want to extract data:</p>
   <ul>
-    <li><a href="{{ stations_data }}">Stations Data</li>
-    <li><a href="{{ raster_data }}">Raster Data</li>
+    <li>Solar Bright (hr)</li>
+    <li>Evaporation (mm)</li>
+    <li>Relative Humidity (%)</li>
+    <li>Precipitation (mm)</li>
+    <li>Maximum Temperature (°C)</li>
+    <li>Minimum Temperature (°C)</li>
+    <li>Temperature (°C)</li>
   </ul>
 {% endblock %}
 

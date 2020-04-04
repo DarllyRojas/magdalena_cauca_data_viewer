@@ -7,68 +7,98 @@ def home(request):
     """
     Controller for the app home page.
     """
-    save_button = Button(
-        display_text='',
-        name='save-button',
-        icon='glyphicon glyphicon-floppy-disk',
-        style='success',
-        attributes={
-            'data-toggle':'tooltip',
-            'data-placement':'top',
-            'title':'Save'
-        }
-    )
-
-    edit_button = Button(
-        display_text='',
-        name='edit-button',
-        icon='glyphicon glyphicon-edit',
-        style='warning',
-        attributes={
-            'data-toggle':'tooltip',
-            'data-placement':'top',
-            'title':'Edit'
-        }
-    )
-
-    remove_button = Button(
-        display_text='',
-        name='remove-button',
-        icon='glyphicon glyphicon-remove',
-        style='danger',
-        attributes={
-            'data-toggle':'tooltip',
-            'data-placement':'top',
-            'title':'Remove'
-        }
-    )
-
-    previous_button = Button(
-        display_text='Previous',
-        name='previous-button',
-        attributes={
-            'data-toggle':'tooltip',
-            'data-placement':'top',
-            'title':'Previous'
-        }
-    )
-
-    next_button = Button(
-        display_text='Next',
-        name='next-button',
-        attributes={
-            'data-toggle':'tooltip',
-            'data-placement':'top',
-            'title':'Next'
-        }
-    )
 
     context = {
-        'save_button': save_button,
-        'edit_button': edit_button,
-        'remove_button': remove_button,
-        'previous_button': previous_button,
-        'next_button': next_button
     }
 
     return render(request, 'magdalena_cauca_data_viewer/home.html', context)
+
+def stations_data(request):
+    """
+    Controller for the app home page.
+    """
+
+    context = {
+    }
+
+    return render(request, 'magdalena_cauca_data_viewer/stations_data.html', context)
+
+def v_solar_bright(request):
+    """
+    Controller for the app home page.
+    """
+
+    context = {
+    }
+
+    return render(request, 'magdalena_cauca_data_viewer/v_solar_bright.html', context)
+
+def v_evaporation(request):
+    """
+    Controller for the app home page.
+    """
+
+    context = {
+    }
+
+    return render(request, 'magdalena_cauca_data_viewer/v_evaporation.html', context)
+
+def v_relative_humidity(request):
+    """
+    Controller for the app home page.
+    """
+
+    context = {
+    }
+
+    return render(request, 'magdalena_cauca_data_viewer/v_relative_humidity.html', context)
+
+def v_precipitation(request):
+    """
+    Controller for the app home page.
+    """
+
+    context = {
+    }
+
+    return render(request, 'magdalena_cauca_data_viewer/v_precipitation.html', context)
+
+def v_max_temperature(request):
+    """
+    Controller for the app home page.
+    """
+
+    context = {
+    }
+
+    return render(request, 'magdalena_cauca_data_viewer/v_max_temperature.html', context)
+
+def v_min_temperature(request):
+    """
+    Controller for the app home page.
+    """
+
+    context = {
+    }
+
+    return render(request, 'magdalena_cauca_data_viewer/v_min_temperature.html', context)
+
+def v_temperature(request):
+    """
+    Controller for the app home page.
+    """
+
+    context = {
+    }
+
+    return render(request, 'magdalena_cauca_data_viewer/v_temperature.html', context)
+
+def raster_data(request):
+    """
+    Controller for the app home page.
+    """
+
+    context = {
+    }
+
+    return render(request, 'magdalena_cauca_data_viewer/raster_data.html', context)
