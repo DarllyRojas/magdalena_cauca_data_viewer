@@ -64,7 +64,7 @@
         accessToken: 'pk.eyJ1IjoiYWJoaXNoZWthbWFsMTgiLCJhIjoiY2s1eTVxNGExMmQ5MDNubjExaWY5MjdvbSJ9.3nmdjWZmUCDNyRdlPo5gbg'
        }).addTo(mymap);
 
-      var bs_stations = L.tileLayer.BetterWMS('https://geoserver.hydroshare.org/geoserver/HS-1d3d1e980df74c61858c664976ea8716/wms', {
+      var bs_stations = L.tileLayer.wms('https://geoserver.hydroshare.org/geoserver/HS-1d3d1e980df74c61858c664976ea8716/wms', {
         layers: 'BS_Stations',
         format: 'image/svg',
         transparent: true,
