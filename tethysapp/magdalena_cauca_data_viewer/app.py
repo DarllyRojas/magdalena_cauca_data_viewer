@@ -40,9 +40,29 @@ class MagdalenaCaucaDataViewer(TethysAppBase):
                 controller='magdalena_cauca_data_viewer.controllers.v_solar_bright'
             ),
             UrlMap(
+	            name='get_observed_data_bs',
+	            url='magdalena-cauca-data-viewer/v_solar_bright/get-observed-data-bs',
+	            controller='magdalena_cauca_data_viewer.controllers.get_observed_data_bs'
+            ),
+            UrlMap(
+	            name='get_observed_data_bs_csv',
+	            url='magdalena-cauca-data-viewer/v_solar_bright/get-observed-data-bs-csv',
+	            controller='magdalena_cauca_data_viewer.controllers.get_observed_data_bs_csv'
+            ),
+            UrlMap(
                 name='v_evaporation',
                 url='magdalena-cauca-data-viewer/v_evaporation',
                 controller='magdalena_cauca_data_viewer.controllers.v_evaporation'
+            ),
+            UrlMap(
+                name='get_observed_data_ev',
+                url='magdalena-cauca-data-viewer/v_evaporation/get-observed-data-ev',
+                controller='magdalena_cauca_data_viewer.controllers.get_observed_data_ev'
+            ),
+            UrlMap(
+                name='get_observed_data_ev_csv',
+                url='magdalena-cauca-data-viewer/v_evaporation/get-observed-data-ev-csv',
+                controller='magdalena_cauca_data_viewer.controllers.get_observed_data_ev_csv'
             ),
             UrlMap(
                 name='v_relative_humidity',
