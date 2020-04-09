@@ -1,0 +1,286 @@
+{% extends "magdalena_cauca_data_viewer/base.html" %}
+{% load staticfiles %}
+{% load tethys_gizmos %}
+{% load static %}
+
+{% block import_gizmos %}
+    {% import_gizmo_dependency plotly_view %}
+{% endblock %}
+
+{% block header_buttons %}
+  <div class="header-button glyphicon-button" data-toggle="tooltip" data-placement="bottom" title="View Graph">
+    <a data-toggle="modal" data-target="#obsgraph"><span class="glyphicon glyphicon-globe"></span></a>
+  </div>
+
+  <div class="header-button glyphicon-button" data-toggle="tooltip" data-placement="bottom" title="Help">
+    <a data-toggle="modal" data-target="#help-modal"><span class="glyphicon glyphicon-question-sign"></span></a>
+  </div>
+{% endblock %}
+
+{% block app_navigation_items %}
+{% url 'magdalena_cauca_data_viewer:home' as home %}
+{% url 'magdalena_cauca_data_viewer:stations_data' as stations_data %}
+{% url 'magdalena_cauca_data_viewer:v_solar_bright' as v_solar_bright %}
+{% url 'magdalena_cauca_data_viewer:v_evaporation' as v_evaporation %}
+{% url 'magdalena_cauca_data_viewer:v_relative_humidity' as v_relative_humidity %}
+{% url 'magdalena_cauca_data_viewer:v_precipitation' as v_precipitation %}
+{% url 'magdalena_cauca_data_viewer:v_max_temperature' as v_max_temperature %}
+{% url 'magdalena_cauca_data_viewer:v_min_temperature' as v_min_temperature %}
+{% url 'magdalena_cauca_data_viewer:v_temperature' as v_temperature %}
+{% url 'magdalena_cauca_data_viewer:raster_data' as raster_data %}
+<li class="{% if request.path == home %}active{% endif %}"><a href="{{ home }}">Home Page</a></li>
+<li class="active"><a href="{{ stations_data }}">Stations Data</a></li>
+  <ul>
+    <li class="{% if request.path == v_solar_bright %}active{% endif %}"><a href="{{ v_solar_bright }}">Solar Bright (hr)</li>
+    <li class="{% if request.path == v_evaporation %}active{% endif %}"><a href="{{ v_evaporation }}">Evaporation (mm)</li>
+    <li class="{% if request.path == v_relative_humidity %}active{% endif %}"><a href="{{ v_relative_humidity }}">Relative Humidity (%)</li>
+    <li class="{% if request.path == v_precipitation %}active{% endif %}"><a href="{{ v_precipitation }}">Precipitation (mm)</li>
+    <li class="{% if request.path == v_max_temperature %}active{% endif %}"><a href="{{ v_max_temperature }}">Maximum Temperature (°C)</li>
+    <li class="{% if request.path == v_min_temperature %}active{% endif %}"><a href="{{ v_min_temperature }}">Minimum Temperature (°C)</li>
+    <li class="{% if request.path == v_temperature %}active{% endif %}"><a href="{{ v_temperature }}">Temperature (°C)</li>
+  </ul>
+<li class="{% if request.path == raster_data %}active{% endif %}"><a href="{{ raster_data }}">Rasters Data</a></li>
+{% endblock %}
+
+{% block app_content %}
+  <head>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+  crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
+    <style>
+      #mapid { height: 600px; }
+    </style>
+  </head>
+
+  <body>
+
+    <div id="mapid"></div>
+
+    <script type="text/javascript">
+
+      let $loading = $('#view-file-loading');
+
+      //var mymap = L.map('mapid').setView([5.5, -75.5], 6);
+
+      var mymap;
+
+      function init_map() {
+        // create map and set center and zoom level
+        mymap = new L.map('mapid');
+        mymap.setView([5.5, -75.5], 6);
+
+        //add base map
+
+        var osm = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+          attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+          maxZoom: 32,
+          id: 'mapbox/streets-v11',
+          accessToken: 'pk.eyJ1IjoiYWJoaXNoZWthbWFsMTgiLCJhIjoiY2s1eTVxNGExMmQ5MDNubjExaWY5MjdvbSJ9.3nmdjWZmUCDNyRdlPo5gbg'
+        })
+
+        osm.addTo(mymap);
+
+        var temp_stations = L.tileLayer.wms('https://geoserver.hydroshare.org/geoserver/HS-519c27268de34b8590719f08a8f37615/wms', {
+          layers: 'HS-519c27268de34b8590719f08a8f37615:TEMP_Stations',
+          format: 'image/png',
+          transparent: true,
+          opacity:1,
+          version: '1.1.0',
+          attribution: "Geoserver"
+        })
+
+        temp_stations.addTo(mymap);
+
+        function Identify(e) {
+
+          // set parameters needed for GetFeatureInfo WMS request
+          var sw = mymap.options.crs.project(mymap.getBounds().getSouthWest());
+          var ne = mymap.options.crs.project(mymap.getBounds().getNorthEast());
+          var BBOX = sw.x + "," + sw.y + "," + ne.x + "," + ne.y;
+          var WIDTH = mymap.getSize().x;
+          var HEIGHT = mymap.getSize().y;
+
+          var X = Math.trunc(mymap.layerPointToContainerPoint(e.layerPoint).x);
+          var Y = Math.trunc(mymap.layerPointToContainerPoint(e.layerPoint).y);
+
+          var URL = 'https://geoserver.hydroshare.org/geoserver/HS-519c27268de34b8590719f08a8f37615/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&LAYERS=HS-519c27268de34b8590719f08a8f37615%3ATEMP_Stations&QUERY_LAYERS=HS-519c27268de34b8590719f08a8f37615%3ATEMP_Stations&BBOX='+BBOX+'&FEATURE_COUNT=1&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&INFO_FORMAT=application%2Fjson&TILED=false&CRS=EPSG%3A3857&I='+X+'&J='+Y;
+
+          if (URL) {
+            $("#obsgraph").modal('show');
+            $('#observed-chart-TEMP').addClass('hidden');
+            $('#observed-loading-TEMP').removeClass('hidden');
+            $("#station-info").empty()
+            $('#download_data_temp').addClass('hidden');
+
+            //send GetFeatureInfo as asynchronous HTTP request using jQuery $.ajax
+            $.ajax({
+              url: URL,
+              dataType: "json",
+              type: "GET",
+              success: function(data) {
+                var returnedFeature = data.features[0];
+                code = returnedFeature.properties.CODIGO;
+                name = returnedFeature.properties.NOMBRE;
+		        stream = returnedFeature.properties.CORRIENTE;
+		        depto = returnedFeature.properties.DEP_;
+		        mpio = returnedFeature.properties.MUN_;
+		        $("#station-info").append('<h3 id="Station-Name-Tab">Current Station: '+ name+ '</h3>'
+		                                + '<h5 id="Station-Code-Tab">Station Code: ' + code + '</h5>'
+		                                + '<h5 id="Stream-Tab">Stream: ' + stream + '</h5>'
+		                                + '<h5>Departament: '+ depto + '</h5>' + '<h5>Municipality: '+ mpio + '</h5>');
+		        get_observed_data_temp (code, name);
+		      }
+		    });
+		  }
+		}
+
+        mymap.addEventListener('click', Identify);
+
+      }
+
+    function get_observed_data_temp (code, name) {
+      $('#observed-loading-TEMP').removeClass('hidden');
+      $.ajax({
+        url: 'get-observed-data-temp',
+        type: 'GET',
+        data: {'code' : code, 'name': name},
+        error: function () {
+          $('#info').html('<p class="alert alert-danger" style="text-align: center"><strong>An unknown error occurred while retrieving the data</strong></p>');
+          $('#info').removeClass('hidden');
+
+          setTimeout(function () {
+            $('#info').addClass('hidden')
+          }, 5000);
+        },
+        success: function (data) {
+          if (!data.error) {
+            $('#observed-loading-TEMP').addClass('hidden');
+            $('#dates').removeClass('hidden');
+            $loading.addClass('hidden');
+            $('#observed-chart-TEMP').removeClass('hidden');
+            $('#observed-chart-TEMP').html(data);
+
+            //resize main graph
+            Plotly.Plots.resize($("#observed-chart-TEMP .js-plotly-plot")[0]);
+
+            var params = {
+              code: code,
+              name: name,
+            };
+
+            $('#submit-download-data-temp').attr({
+              target: '_blank',
+              href: 'get-observed-data-temp-csv?' + jQuery.param(params)
+            });
+
+            $('#download_data_temp').removeClass('hidden');
+
+          } else if (data.error) {
+              $('#info').html('<p class="alert alert-danger" style="text-align: center"><strong>An unknown error occurred while retrieving the Data</strong></p>');
+              $('#info').removeClass('hidden');
+
+              setTimeout(function() {
+                $('#info').addClass('hidden')
+              }, 5000);
+
+          } else {
+            $('#info').html('<p><strong>An unexplainable error occurred.</strong></p>').removeClass('hidden');
+          }
+        }
+      });
+    };
+
+    function resize_graphs() {
+        $("#dataTEMP_tab_link").click(function() {
+            Plotly.Plots.resize($("#observed-chart-TEMP .js-plotly-plot")[0]);
+        });
+    };
+
+    $(function() {
+      init_map();
+      resize_graphs();
+    });
+
+    </script>
+  </body>
+{% endblock %}
+
+{# Use the after_app_content block for modals #}
+{% block after_app_content %}
+  <!----Observed Data ----->
+  <div class="modal fade" id="obsgraph" tabindex="-1" role="dialog" aria-labelledby="about-modal-label">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <div class="row">
+            <div id="station-info" class="col-md-8"></div>
+            <div class="col-md-4">
+              <div align="right">
+                <img class="obslogos" src="{% static 'magdalena_cauca_data_viewer/images/my-icon.png' %}">
+              </div>
+            </div>
+            <div id="interaction"></div>
+          </div>
+        </div>
+        <div class="modal-body">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a id="dataTEMP_tab_link" href="#observedTEMP" aria-controls="observedTEMP" role="tab" data-toggle="tab">Observed Values</a></li>
+            <li role="presentation"><a href="#download_data" aria-controls="download_data" role="tab" data-toggle="tab">Download Data</a></li>
+          </ul>
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="observedTEMP">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <div class="flex-container-row"><img id="observed-loading-TEMP" class="view-file hidden" src="{% static 'magdalena_cauca_data_viewer/images/loader.gif' %}" /></div>
+                  <div id="observed-chart-TEMP"></div>
+                </div>
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="download_data">
+              <div class="panel-body">
+                <h6>Download Temperature Data</h6>
+                <div id="download_data_temp" class="btn-group hidden long-term-select" role="group">
+                  <a class="btn btn-success" role="button" id="submit-download-data-temp">
+                    <span class="glyphicon glyphicon-play"></span> Download Temperature Data
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Example Modal -->
+  <div class="modal fade" id="help-modal" tabindex="-1" role="dialog" aria-labelledby="help-modal-label">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h5 class="modal-title" id="help-modal-label">Example Modal</h5>
+        </div>
+        <div class="modal-body">
+          <p>You can add custom buttons to the app header using the <code>header_buttons</code> block. Use anchor/link tags for the button and wrap it in a div with the class <code>header-button</code>. For buttons with the gliphyicons, add the <code>glyphicon-button</code> class as well.</p>
+          <p>Ever have trouble using a modal in a Tethys app? Use the <code>after_app_content</code> block for modal content to allow them to function properly. See: <a href="https://getbootstrap.com/javascript/#modals">Bootstrap Modals</a></p>
+          <p>Add tooltips to any element by adding the <code>data-toggle</code>, <code>data-placement</code>, and <code>title</code> attributes to the button. See: <a href="https://getbootstrap.com/javascript/#tooltips">Bootstrap Tooltips</a></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block app_actions %}
+{% endblock %}
