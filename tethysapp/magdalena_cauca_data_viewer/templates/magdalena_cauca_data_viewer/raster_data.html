@@ -11,22 +11,47 @@
 {% url 'magdalena_cauca_data_viewer:home' as home %}
 {% url 'magdalena_cauca_data_viewer:stations_data' as stations_data %}
 {% url 'magdalena_cauca_data_viewer:raster_data' as raster_data %}
+{% url 'magdalena_cauca_data_viewer:r_solar_bright' as r_solar_bright %}
+{% url 'magdalena_cauca_data_viewer:r_evaporation' as r_evaporation %}
+{% url 'magdalena_cauca_data_viewer:r_relative_humidity' as r_relative_humidity %}
+{% url 'magdalena_cauca_data_viewer:r_precipitation' as r_precipitation %}
+{% url 'magdalena_cauca_data_viewer:r_max_temperature' as r_max_temperature %}
+{% url 'magdalena_cauca_data_viewer:r_min_temperature' as r_min_temperature %}
+{% url 'magdalena_cauca_data_viewer:r_temperature' as r_temperature %}
 <li class="{% if request.path == home %}active{% endif %}"><a href="{{ home }}">Home Page</a></li>
 <li class="{% if request.path == stations_data %}active{% endif %}"><a href="{{ stations_data }}">Stations Data</a></li>
 <li class="{% if request.path == raster_data %}active{% endif %}"><a href="{{ raster_data }}">Raster Data</a></li>
+  <ul>
+    <li class="{% if request.path == r_solar_bright %}active{% endif %}"><a href="{{ r_solar_bright }}">Solar Bright (hr)</li>
+    <li class="{% if request.path == r_evaporation %}active{% endif %}"><a href="{{ r_evaporation }}">Evaporation (mm)</li>
+    <li class="{% if request.path == r_relative_humidity %}active{% endif %}"><a href="{{ r_relative_humidity }}">Relative Humidity (%)</li>
+    <li class="{% if request.path == r_precipitation %}active{% endif %}"><a href="{{ r_precipitation }}">Precipitation (mm)</li>
+    <li class="{% if request.path == r_max_temperature %}active{% endif %}"><a href="{{ r_max_temperature }}">Maximum Temperature (°C)</li>
+    <li class="{% if request.path == r_min_temperature %}active{% endif %}"><a href="{{ r_min_temperature }}">Minimum Temperature (°C)</li>
+    <li class="{% if request.path == r_temperature %}active{% endif %}"><a href="{{ r_temperature }}">Temperature (°C)</li>
+  </ul>
 {% endblock %}
 
 {% block app_content %}
+
+  {% url 'magdalena_cauca_data_viewer:r_solar_bright' as r_solar_bright %}
+  {% url 'magdalena_cauca_data_viewer:r_evaporation' as r_evaporation %}
+  {% url 'magdalena_cauca_data_viewer:r_relative_humidity' as r_relative_humidity %}
+  {% url 'magdalena_cauca_data_viewer:r_precipitation' as r_precipitation %}
+  {% url 'magdalena_cauca_data_viewer:r_max_temperature' as r_max_temperature %}
+  {% url 'magdalena_cauca_data_viewer:r_min_temperature' as r_min_temperature %}
+  {% url 'magdalena_cauca_data_viewer:r_temperature' as r_temperature %}
+
   <h1>Welcome to Magdalena and Cauca Rivers Basin Stations Data Navigator!</h1>
   <p>Please, select the variable of interest which you want to extract data:</p>
   <ul>
-    <li>Solar Bright (hr)</li>
-    <li>Evaporation (mm)</li>
-    <li>Relative Humidity (%)</li>
-    <li>Precipitation (mm)</li>
-    <li>Maximum Temperature (°C)</li>
-    <li>Minimum Temperature (°C)</li>
-    <li>Temperature (°C)</li>
+    <li><a href="{{ r_solar_bright }}">Solar Bright (hr)</li>
+    <li><a href="{{ r_evaporation }}">Evaporation (mm)</li>
+    <li><a href="{{ r_relative_humidity }}">Relative Humidity (%)</li>
+    <li><a href="{{ r_precipitation }}">Precipitation (mm)</li>
+    <li><a href="{{ r_max_temperature }}">Maximum Temperature (°C)</li>
+    <li><a href="{{ r_min_temperature }}">Minimum Temperature (°C)</li>
+    <li><a href="{{ r_temperature }}">Temperature (°C)</li>
   </ul>
 {% endblock %}
 
