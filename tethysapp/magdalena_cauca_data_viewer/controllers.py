@@ -137,6 +137,7 @@ def v_evaporation(request):
     }
 
     return render(request, 'magdalena_cauca_data_viewer/v_evaporation.html', context)
+
 def get_observed_data_ev(request):
     """
     Get observed data from csv files in Hydroshare
@@ -184,6 +185,7 @@ def get_observed_data_ev(request):
     except Exception as e:
         print(str(e))
         return JsonResponse({'error': 'No data found for the selected station.'})
+
 def get_observed_data_ev_csv(request):
     """
     Get observed data from csv files in Hydroshare
@@ -233,6 +235,7 @@ def v_relative_humidity(request):
     }
 
     return render(request, 'magdalena_cauca_data_viewer/v_relative_humidity.html', context)
+
 def get_observed_data_hr(request):
     """
     Get observed data from csv files in Hydroshare
@@ -280,6 +283,7 @@ def get_observed_data_hr(request):
     except Exception as e:
         print(str(e))
         return JsonResponse({'error': 'No data found for the selected station.'})
+
 def get_observed_data_hr_csv(request):
     """
     Get observed data from csv files in Hydroshare
@@ -329,6 +333,7 @@ def v_precipitation(request):
     }
 
     return render(request, 'magdalena_cauca_data_viewer/v_precipitation.html', context)
+
 def get_observed_data_prec(request):
     """
     Get observed data from csv files in Hydroshare
@@ -376,6 +381,7 @@ def get_observed_data_prec(request):
     except Exception as e:
         print(str(e))
         return JsonResponse({'error': 'No data found for the selected station.'})
+
 def get_observed_data_prec_csv(request):
     """
     Get observed data from csv files in Hydroshare
@@ -425,6 +431,7 @@ def v_max_temperature(request):
     }
 
     return render(request, 'magdalena_cauca_data_viewer/v_max_temperature.html', context)
+
 def get_observed_data_tmax(request):
     """
     Get observed data from csv files in Hydroshare
@@ -472,6 +479,7 @@ def get_observed_data_tmax(request):
     except Exception as e:
         print(str(e))
         return JsonResponse({'error': 'No data found for the selected station.'})
+
 def get_observed_data_tmax_csv(request):
     """
     Get observed data from csv files in Hydroshare
@@ -520,6 +528,7 @@ def v_min_temperature(request):
     }
 
     return render(request, 'magdalena_cauca_data_viewer/v_min_temperature.html', context)
+
 def get_observed_data_tmin(request):
     """
     Get observed data from csv files in Hydroshare
@@ -712,3 +721,13 @@ def raster_data(request):
     }
 
     return render(request, 'magdalena_cauca_data_viewer/raster_data.html', context)
+
+def r_solar_bright(request):
+    """
+    Controller for the app Solar bright page.
+    """
+
+    context = {
+    }
+
+    return render(request, 'magdalena_cauca_data_viewer/r_solar_bright.html', context)

@@ -139,11 +139,15 @@ class MagdalenaCaucaDataViewer(TethysAppBase):
 	            url='magdalena-cauca-data-viewer/v_temperature/get-observed-data-temp-csv',
 	            controller='magdalena_cauca_data_viewer.controllers.get_observed_data_temp_csv'
             ),
-
             UrlMap(
                 name='raster_data',
                 url='magdalena-cauca-data-viewer/raster_data',
                 controller='magdalena_cauca_data_viewer.controllers.raster_data'
+            ),
+            UrlMap(
+	            name='r_solar_bright',
+	            url='magdalena-cauca-data-viewer/r_solar_bright',
+	            controller='magdalena_cauca_data_viewer.controllers.r_solar_bright'
             ),
         )
 
