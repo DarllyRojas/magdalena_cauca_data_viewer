@@ -90,17 +90,22 @@
 
         var layer = L.canvasLayer.scalarField(s, {
                 color: chroma.scale(['blue', 'red']).domain(s.range),
+                opacity: 0.6,
                 //mouseMoveCursor: null
         }).addTo(mymap);
         mymap.fitBounds(layer.getBounds());
+        layer.bindPopup("holas")
+        // layer.on('click', function (e) {
+        //   console.log("hola up");
+          // if (e.value !== null) {
+          //   console.log("hola");
 
-        layer.on('click', function (e) {
-          if (e.value !== null) {
-            let v = e.value.toFixed(2);
-            let html = `<span class="popupText">The Total Annual Solar Bright for the selected location is ${v} hours</span>`;
-            let popup = L.popup().setLatLng(e.latlng).setContent(html).addTo(mymap);
-          }
-        });
+            // let v = e.value.toFixed(2);
+            // let html = `<span class="popupText">The Total Annual Solar Bright for the selected location is ${v} hours</span>`;
+            // // let popup = L.popup().setLatLng(e.latlng).setContent(html).addTo(mymap);
+            // let popup = L.popup().setLatLng(e.latlng).setContent(`<p>asfas</p>`).addTo(mymap);
+          // }
+        // });
 
         //layer.on('mousemove', function (e) {
           //console.log(e.latlng);
