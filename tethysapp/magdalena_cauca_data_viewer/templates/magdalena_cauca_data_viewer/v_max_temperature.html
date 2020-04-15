@@ -89,7 +89,8 @@
           transparent: true,
           opacity:1,
           version: '1.1.0',
-          attribution: "Geoserver"
+          attribution: "Geoserver",
+          crossOrigin: 'anonymous'
         })
 
         tmax_stations.addTo(mymap);
@@ -109,11 +110,6 @@
           var URL = 'https://geoserver.hydroshare.org/geoserver/HS-519c27268de34b8590719f08a8f37615/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&LAYERS=HS-519c27268de34b8590719f08a8f37615%3AT_MAX_Stations&QUERY_LAYERS=HS-519c27268de34b8590719f08a8f37615%3AT_MAX_Stations&BBOX='+BBOX+'&FEATURE_COUNT=1&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&INFO_FORMAT=application%2Fjson&TILED=false&CRS=EPSG%3A3857&I='+X+'&J='+Y;
 
           if (URL) {
-            $("#obsgraph").modal('show');
-            $('#observed-chart-TMAX').addClass('hidden');
-            $('#observed-loading-TMAX').removeClass('hidden');
-            $("#station-info").empty()
-            $('#download_data_tmax').addClass('hidden');
 
             //send GetFeatureInfo as asynchronous HTTP request using jQuery $.ajax
             $.ajax({
@@ -121,17 +117,24 @@
               dataType: "json",
               type: "GET",
               success: function(data) {
-                var returnedFeature = data.features[0];
-                code = returnedFeature.properties.CODIGO;
-                name = returnedFeature.properties.NOMBRE;
-		        stream = returnedFeature.properties.CORRIENTE;
-		        depto = returnedFeature.properties.DEP_;
-		        mpio = returnedFeature.properties.MUN_;
-		        $("#station-info").append('<h3 id="Station-Name-Tab">Current Station: '+ name+ '</h3>'
-		                                + '<h5 id="Station-Code-Tab">Station Code: ' + code + '</h5>'
-		                                + '<h5 id="Stream-Tab">Stream: ' + stream + '</h5>'
-		                                + '<h5>Departament: '+ depto + '</h5>' + '<h5>Municipality: '+ mpio + '</h5>');
-		        get_observed_data_tmax (code, name);
+                if(data.features.length !== 0){
+                    $("#obsgraph").modal('show');
+                    $('#observed-chart-TMAX').addClass('hidden');
+                    $('#observed-loading-TMAX').removeClass('hidden');
+                    $("#station-info").empty()
+                    $('#download_data_tmax').addClass('hidden');
+                    var returnedFeature = data.features[0];
+                    code = returnedFeature.properties.CODIGO;
+                    name = returnedFeature.properties.NOMBRE;
+                    stream = returnedFeature.properties.CORRIENTE;
+                    depto = returnedFeature.properties.DEP_;
+                    mpio = returnedFeature.properties.MUN_;
+                    $("#station-info").append('<h3 id="Station-Name-Tab">Current Station: '+ name+ '</h3>'
+                                        + '<h5 id="Station-Code-Tab">Station Code: ' + code + '</h5>'
+                                        + '<h5 id="Stream-Tab">Stream: ' + stream + '</h5>'
+                                        + '<h5>Departament: '+ depto + '</h5>' + '<h5>Municipality: '+ mpio + '</h5>');
+                    get_observed_data_tmax (code, name);
+                }
 		      }
 		    });
 		  }

@@ -55,7 +55,7 @@ def get_observed_data_bs(request):
 
         url = 'https://www.hydroshare.org/resource/d7d98390ab884eeda89f4a10b072bbc3/data/contents/BS/{}.csv'.format(codEstacion)
 
-        s = requests.get(url).content
+        s = requests.get(url, verify=False).content
 
         df = pd.read_csv(io.StringIO(s.decode('utf-8')), index_col=0)
         df.index = pd.to_datetime(df.index)
@@ -102,7 +102,7 @@ def get_observed_data_bs_csv(request):
 
         url = 'https://www.hydroshare.org/resource/d7d98390ab884eeda89f4a10b072bbc3/data/contents/BS/{}.csv'.format(codEstacion)
 
-        s = requests.get(url).content
+        s = requests.get(url, verify=False).content
 
         df = pd.read_csv(io.StringIO(s.decode('utf-8')), index_col=0)
         df.index = pd.to_datetime(df.index)
@@ -152,7 +152,7 @@ def get_observed_data_ev(request):
 
         url = 'https://www.hydroshare.org/resource/1021402cd2cb4519b3a02c3d9b2c3722/data/contents/EV/{}.csv'.format(codEstacion)
 
-        s = requests.get(url).content
+        s = requests.get(url, verify=False).content
 
         df = pd.read_csv(io.StringIO(s.decode('utf-8')), index_col=0)
         df.index = pd.to_datetime(df.index)
@@ -199,7 +199,7 @@ def get_observed_data_ev_csv(request):
 
         url = 'https://www.hydroshare.org/resource/1021402cd2cb4519b3a02c3d9b2c3722/data/contents/EV/{}.csv'.format(codEstacion)
 
-        s = requests.get(url).content
+        s = requests.get(url, verify=False).content
 
         df = pd.read_csv(io.StringIO(s.decode('utf-8')), index_col=0)
         df.index = pd.to_datetime(df.index)
@@ -250,7 +250,7 @@ def get_observed_data_hr(request):
 
         url = 'https://www.hydroshare.org/resource/5ddb8470be904567af4f6b29434a5d51/data/contents/HR/{}.csv'.format(codEstacion)
 
-        s = requests.get(url).content
+        s = requests.get(url, verify=False).content
 
         df = pd.read_csv(io.StringIO(s.decode('utf-8')), index_col=0)
         df.index = pd.to_datetime(df.index)
@@ -297,7 +297,7 @@ def get_observed_data_hr_csv(request):
 
         url = 'https://www.hydroshare.org/resource/5ddb8470be904567af4f6b29434a5d51/data/contents/HR/{}.csv'.format(codEstacion)
 
-        s = requests.get(url).content
+        s = requests.get(url, verify=False).content
 
         df = pd.read_csv(io.StringIO(s.decode('utf-8')), index_col=0)
         df.index = pd.to_datetime(df.index)
@@ -348,7 +348,7 @@ def get_observed_data_prec(request):
 
         url = 'https://www.hydroshare.org/resource/7e1747a802cd42418e7f277ec10f91be/data/contents/PREC/{}.csv'.format(codEstacion)
         # Here change id resource for csv
-        s = requests.get(url).content
+        s = requests.get(url, verify=False).content
 
         df = pd.read_csv(io.StringIO(s.decode('utf-8')), index_col=0)
         df.index = pd.to_datetime(df.index)
@@ -395,7 +395,7 @@ def get_observed_data_prec_csv(request):
 
         url = 'https://www.hydroshare.org/resource/7e1747a802cd42418e7f277ec10f91be/data/contents/PREC/{}.csv'.format(codEstacion)
 
-        s = requests.get(url).content
+        s = requests.get(url, verify=False).content
 
         df = pd.read_csv(io.StringIO(s.decode('utf-8')), index_col=0)
         df.index = pd.to_datetime(df.index)
@@ -446,7 +446,7 @@ def get_observed_data_tmax(request):
 
         url = 'https://www.hydroshare.org/resource/5cb3aebd67d04de7aba1e69cf1b6376c/data/contents/T_MAX/{}.csv'.format(codEstacion)
 
-        s = requests.get(url).content
+        s = requests.get(url, verify=False).content
 
         df = pd.read_csv(io.StringIO(s.decode('utf-8')), index_col=0)
         df.index = pd.to_datetime(df.index)
@@ -493,7 +493,7 @@ def get_observed_data_tmax_csv(request):
 
         url = 'https://www.hydroshare.org/resource/5cb3aebd67d04de7aba1e69cf1b6376c/data/contents/T_MAX/{}.csv'.format(codEstacion)
 
-        s = requests.get(url).content
+        s = requests.get(url, verify=False).content
 
         df = pd.read_csv(io.StringIO(s.decode('utf-8')), index_col=0)
         df.index = pd.to_datetime(df.index)
@@ -543,7 +543,7 @@ def get_observed_data_tmin(request):
 
         url = 'https://www.hydroshare.org/resource/3de9f32fa75c4b73b73ce8215b513cf7/data/contents/T_MIN/{}.csv'.format(codEstacion)
 
-        s = requests.get(url).content
+        s = requests.get(url, verify=False).content
 
         df = pd.read_csv(io.StringIO(s.decode('utf-8')), index_col=0)
         df.index = pd.to_datetime(df.index)
@@ -589,7 +589,7 @@ def get_observed_data_tmin_csv(request):
 
         url = 'https://www.hydroshare.org/resource/3de9f32fa75c4b73b73ce8215b513cf7/data/contents/T_MIN/{}.csv'.format(codEstacion)
 
-        s = requests.get(url).content
+        s = requests.get(url, verify=False).content
 
         df = pd.read_csv(io.StringIO(s.decode('utf-8')), index_col=0)
         df.index = pd.to_datetime(df.index)
@@ -639,7 +639,7 @@ def get_observed_data_temp(request):
 
         url = 'https://www.hydroshare.org/resource/713d0a35bd2c48f8ba47c6fa76be2bac/data/contents/TEMP/{}.csv'.format(codEstacion)
 
-        s = requests.get(url).content
+        s = requests.get(url, verify=False).content
 
         df = pd.read_csv(io.StringIO(s.decode('utf-8')), index_col=0)
         df.index = pd.to_datetime(df.index)
@@ -685,7 +685,7 @@ def get_observed_data_temp_csv(request):
 
         url = 'https://www.hydroshare.org/resource/713d0a35bd2c48f8ba47c6fa76be2bac/data/contents/TEMP/{}.csv'.format(codEstacion)
 
-        s = requests.get(url).content
+        s = requests.get(url, verify=False).content
 
         df = pd.read_csv(io.StringIO(s.decode('utf-8')), index_col=0)
         df.index = pd.to_datetime(df.index)
