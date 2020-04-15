@@ -89,7 +89,7 @@
         //let layer = L.canvasLayer.scalarField(s).addTo(mymap);
 
         var layer = L.canvasLayer.scalarField(s, {
-                color: chroma.scale(['green', 'red']).domain(s.range),
+                color: chroma.scale(['blue', 'red']).domain(s.range),
                 //mouseMoveCursor: null
         }).addTo(mymap);
         mymap.fitBounds(layer.getBounds());
