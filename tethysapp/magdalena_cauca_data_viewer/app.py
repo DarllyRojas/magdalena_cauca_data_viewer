@@ -149,6 +149,36 @@ class MagdalenaCaucaDataViewer(TethysAppBase):
 	            url='magdalena-cauca-data-viewer/r_solar_bright',
 	            controller='magdalena_cauca_data_viewer.controllers.r_solar_bright'
             ),
+            UrlMap(
+	            name='r_evaporation',
+	            url='magdalena-cauca-data-viewer/r_evaporation',
+	            controller='magdalena_cauca_data_viewer.controllers.r_evaporation'
+            ),
+            UrlMap(
+	            name='r_relative_humidity',
+	            url='magdalena-cauca-data-viewer/r_relative_humidity',
+	            controller='magdalena_cauca_data_viewer.controllers.r_relative_humidity'
+            ),
+            UrlMap(
+	            name='r_precipitation',
+	            url='magdalena-cauca-data-viewer/r_precipitation',
+	            controller='magdalena_cauca_data_viewer.controllers.r_precipitation'
+            ),
+            UrlMap(
+	            name='r_max_temperature',
+	            url='magdalena-cauca-data-viewer/r_max_temperature',
+	            controller='magdalena_cauca_data_viewer.controllers.r_max_temperature'
+            ),
+            UrlMap(
+	            name='r_min_temperature',
+	            url='magdalena-cauca-data-viewer/r_min_temperature',
+	            controller='magdalena_cauca_data_viewer.controllers.r_min_temperature'
+            ),
+            UrlMap(
+	            name='r_temperature',
+	            url='magdalena-cauca-data-viewer/r_temperature',
+	            controller='magdalena_cauca_data_viewer.controllers.r_temperature'
+            ),
         )
 
         return url_maps

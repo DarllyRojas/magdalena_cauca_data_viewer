@@ -22,13 +22,14 @@
 <li class="{% if request.path == stations_data %}active{% endif %}"><a href="{{ stations_data }}">Stations Data</a></li>
 <li class="{% if request.path == raster_data %}active{% endif %}"><a href="{{ raster_data }}">Raster Data</a></li>
   <ul>
-    <li class="{% if request.path == r_solar_bright %}active{% endif %}"><a href="{{ r_solar_bright }}">Solar Bright (hr)</li>
-    <li class="{% if request.path == r_evaporation %}active{% endif %}"><a href="{{ r_evaporation }}">Evaporation (mm)</li>
-    <li class="{% if request.path == r_relative_humidity %}active{% endif %}"><a href="{{ r_relative_humidity }}">Relative Humidity (%)</li>
-    <li class="{% if request.path == r_precipitation %}active{% endif %}"><a href="{{ r_precipitation }}">Precipitation (mm)</li>
-    <li class="{% if request.path == r_max_temperature %}active{% endif %}"><a href="{{ r_max_temperature }}">Maximum Temperature (°C)</li>
-    <li class="{% if request.path == r_min_temperature %}active{% endif %}"><a href="{{ r_min_temperature }}">Minimum Temperature (°C)</li>
-    <li class="{% if request.path == r_temperature %}active{% endif %}"><a href="{{ r_temperature }}">Temperature (°C)</li>
+    <li class="{% if request.path == r_solar_bright %}active{% endif %}"><a href="{{ r_solar_bright }}">Solar Bright (hr)</a></li>
+    <li class="{% if request.path == r_evaporation %}active{% endif %}"><a href="{{ r_evaporation }}">Evaporation (mm)</a></li>
+    <li class="{% if request.path == r_relative_humidity %}active{% endif %}"><a href="{{ r_relative_humidity }}">Relative Humidity (%)</a></li>
+    <li class="{% if request.path == r_precipitation %}active{% endif %}"><a href="{{ r_precipitation }}">Precipitation (mm)</a></li>
+    <li class="{% if request.path == r_max_temperature %}active{% endif %}"><a href="{{ r_max_temperature }}">Maximum Temperature (°C)</a></li>
+    <li class="{% if request.path == r_min_temperature %}active{% endif %}"><a href="{{ r_min_temperature }}">Minimum Temperature (°C)</a></li>
+    <li class="{% if request.path == r_temperature %}active{% endif %}"><a href="{{ r_temperature }}">Temperature (°C)</a></li>
+    <li class="{% if request.path == r_get %}active{% endif %}"><a href="{{ r_get }}">Get Raster Data</a></li>
   </ul>
 {% endblock %}
 

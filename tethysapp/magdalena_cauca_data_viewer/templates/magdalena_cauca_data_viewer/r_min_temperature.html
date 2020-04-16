@@ -48,7 +48,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
 
     <style>
-      #mapid { height: 550px; }
+      #mapid { height: 600px; }
     </style>
   </head>
 
@@ -81,13 +81,13 @@
         accessToken: 'pk.eyJ1IjoiYWJoaXNoZWthbWFsMTgiLCJhIjoiY2s1eTVxNGExMmQ5MDNubjExaWY5MjdvbSJ9.3nmdjWZmUCDNyRdlPo5gbg'
       }).addTo(mymap);
 
-      /* An ASCIIGrid Raster with Total Annual Solar Bright */
-      d3.text('/static/magdalena_cauca_data_viewer/raster/bs.asc', function (asc) {
+      /* An ASCIIGrid Raster with Total Annual Evaporation*/
+      d3.text('/static/magdalena_cauca_data_viewer/raster/t_min.asc', function (asc) {
         let s = L.ScalarField.fromASCIIGrid(asc);
         //let layer = L.canvasLayer.scalarField(s).addTo(mymap);
 
         var layer = L.canvasLayer.scalarField(s, {
-                color: chroma.scale(['ffff80', 'red']).domain(s.range),
+                color: chroma.scale(['0033cc', 'cbdbff']).domain(s.range),
                 opacity: 0.4,
                 //mouseMoveCursor: null
         }).addTo(mymap);
@@ -95,10 +95,9 @@
         layer.on('click', function (e) {
           if (e.value !== null) {
             let v = e.value.toFixed(2);
-            let html = `<span class="popupText">The Total Annual Solar Bright for the selected location is ${v} hours</span>`;
+            let html = `<span class="popupText">The Minimum Annual Temperature for the selected location is ${v} °C</span>`;
             let popup = L.popup().setLatLng(e.latlng).setContent(html).addTo(mymap);
           }
-
         });
 
         layer.on('mousemove', function (e) {

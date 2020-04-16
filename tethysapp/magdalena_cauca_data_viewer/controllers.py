@@ -731,3 +731,63 @@ def r_solar_bright(request):
     }
 
     return render(request, 'magdalena_cauca_data_viewer/r_solar_bright.html', context)
+
+def r_evaporation(request):
+    """
+    Controller for the app Solar bright page.
+    """
+
+    context = {
+    }
+
+    return render(request, 'magdalena_cauca_data_viewer/r_evaporation.html', context)
+
+def r_relative_humidity(request):
+    """
+    Controller for the app Solar bright page.
+    """
+
+    context = {
+    }
+
+    return render(request, 'magdalena_cauca_data_viewer/r_relative_humidity.html', context)
+
+def r_precipitation(request):
+    """
+    Controller for the app Precipitation page.
+    """
+
+    context = {
+    }
+
+    return render(request, 'magdalena_cauca_data_viewer/r_precipitation.html', context)
+
+def r_max_temperature(request):
+    """
+    Controller for the app Maximum Temperature page.
+    """
+
+    context = {
+    }
+
+    return render(request, 'magdalena_cauca_data_viewer/r_max_temperature.html', context)
+
+def r_min_temperature(request):
+    """
+    Controller for the app Minimum Temperature page.
+    """
+
+    context = {
+    }
+
+    return render(request, 'magdalena_cauca_data_viewer/r_min_temperature.html', context)
+
+def r_temperature(request):
+    """
+    Controller for the app Temperature page.
+    """
+
+    context = {
+    }
+
+    return render(request, 'magdalena_cauca_data_viewer/r_temperature.html', context)

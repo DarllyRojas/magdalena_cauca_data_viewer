@@ -21,13 +21,13 @@
 <li class="{% if request.path == home %}active{% endif %}"><a href="{{ home }}">Home Page</a></li>
 <li class="{% if request.path == stations_data %}active{% endif %}"><a href="{{ stations_data }}">Stations Data</a></li>
   <ul>
-    <li class="{% if request.path == v_solar_bright %}active{% endif %}"><a href="{{ v_solar_bright }}">Solar Bright (hr)</li>
-    <li class="{% if request.path == v_evaporation %}active{% endif %}"><a href="{{ v_evaporation }}">Evaporation (mm)</li>
-    <li class="{% if request.path == v_relative_humidity %}active{% endif %}"><a href="{{ v_relative_humidity }}">Relative Humidity (%)</li>
-    <li class="{% if request.path == v_precipitation %}active{% endif %}"><a href="{{ v_precipitation }}">Precipitation (mm)</li>
-    <li class="{% if request.path == v_max_temperature %}active{% endif %}"><a href="{{ v_max_temperature }}">Maximum Temperature (°C)</li>
-    <li class="{% if request.path == v_min_temperature %}active{% endif %}"><a href="{{ v_min_temperature }}">Minimum Temperature (°C)</li>
-    <li class="{% if request.path == v_temperature %}active{% endif %}"><a href="{{ v_temperature }}">Temperature (°C)</li>
+    <li class="{% if request.path == v_solar_bright %}active{% endif %}"><a href="{{ v_solar_bright }}">Solar Bright (hr)</a></li>
+    <li class="{% if request.path == v_evaporation %}active{% endif %}"><a href="{{ v_evaporation }}">Evaporation (mm)</a></li>
+    <li class="{% if request.path == v_relative_humidity %}active{% endif %}"><a href="{{ v_relative_humidity }}">Relative Humidity (%)</a></li>
+    <li class="{% if request.path == v_precipitation %}active{% endif %}"><a href="{{ v_precipitation }}">Precipitation (mm)</a></li>
+    <li class="{% if request.path == v_max_temperature %}active{% endif %}"><a href="{{ v_max_temperature }}">Maximum Temperature (°C)</a></li>
+    <li class="{% if request.path == v_min_temperature %}active{% endif %}"><a href="{{ v_min_temperature }}">Minimum Temperature (°C)</a></li>
+    <li class="{% if request.path == v_temperature %}active{% endif %}"><a href="{{ v_temperature }}">Temperature (°C)</a></li>
   </ul>
 <li class="{% if request.path == raster_data %}active{% endif %}"><a href="{{ raster_data }}">Rasters Data</a></li>
 {% endblock %}
